@@ -11,9 +11,9 @@ var cell_walls = {Vector2(1, 0): E, Vector2(-1, 0): W,
                   Vector2(0, 1): S, Vector2(0, -1): N}
 var tile_size = 16
 var width = 25 
-var height = 15 
+var height = 20 
 var starting_cell = Vector2(0, 0)
-var show_process = false
+var show_process = true
 onready var Map = $TileMap
 
 
@@ -28,6 +28,7 @@ func _input(event):
 
 
 func make_maze():
+	$TileMap.position.x = tile_size.x * height / 2
 	creating = true
 	var unvisited = [] 
 	var stack = []
@@ -53,8 +54,6 @@ func make_maze():
 		elif stack:
 			current = stack.pop_back()
 		if show_process:
-			$current.position.x = current.x * tile_size.x
-			$current.position.y = current.y * tile_size.y
 			yield(get_tree(), 'idle_frame')
 	creating = false
 
